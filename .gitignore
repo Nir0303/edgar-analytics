@@ -4,3 +4,6 @@
 .idea
 */__pycache__/*
 .pytest_cache
+insight_testsuite/results.txt
+insight_testsuite/temp/
+test.txt
