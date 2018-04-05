@@ -4,4 +4,4 @@
 #
 #python ./src/sessionization.py ./input/log.csv ./input/inactivity_period.txt ./output/sessionization.txt
 
-python src/main.py
+python src/sessionization.py --input ./input/log.csv --output ./output/sessionization.txt

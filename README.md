@@ -35,9 +35,26 @@
 
 5. Run shell script to start streaming application
 
+```
+usage: sessionization.py [-h] [--input INPUT] [--output OUTPUT] [--log_level LOG_LEVEL]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input INPUT, -i INPUT
+                        input files to process
+  --output OUTPUT, -o OUTPUT
+                        output file to write process data
+  --log_level LOG_LEVEL, -l LOG_LEVEL
+                        Set loglevel for debugging and analysis
+
+
+```
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `./run.sh`
 
 # Tests
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `cd insight_testsuite`
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `./run_tests.sh`
 
 

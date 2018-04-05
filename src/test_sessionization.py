@@ -4,7 +4,7 @@ Module to test main module
 """
 import unittest
 from mock import patch, PropertyMock
-from main import App, Record
+from sessionization import App, Record
 
 
 # pylint: disable=R0201
@@ -37,7 +37,7 @@ class TestMain(unittest.TestCase):
         assert hasattr(Record, 'time_diff')
         assert isinstance(Record.time_diff, property)
 
-    @patch('main.App.run')
+    @patch('sessionization.App.run')
     def test_run(self, run=None):
         """
         test case to validate run function
@@ -65,7 +65,7 @@ class TestMain(unittest.TestCase):
         assert record.start_time != record.end_time
         assert len(record.document) == 3
         assert record.time_diff == '601'
-        assert str(record) == '123,2017-06-30,00:00:00,2017-06-30,00:10:00,601,3'
+        assert str(record) == '123,2017-06-30 00:00:00,2017-06-30 00:10:00,601,3'
 
     def test_record_failure(self):
         """
