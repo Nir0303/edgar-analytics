@@ -83,7 +83,7 @@ class TestMain(unittest.TestCase):
         assert record.time_diff != '1'
 
     def test_app(self):
-
+        pass
 
         
 

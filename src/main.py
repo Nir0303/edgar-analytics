@@ -76,8 +76,8 @@ class Record(object):
         Override repr special method for printing or writing data
         :return:
         """
-        return self.ip + ',' + str(self.start_time.date()) + ',' + str(self.start_time.time()) + ',' \
-                 + str(self.end_time.date()) + ',' + str(self.end_time.time()) + ',' + \
+        return self.ip + ',' + str(self.start_time) + ','  \
+                 + str(self.end_time)+ ',' + \
                self.time_diff + ',' + str(len(self.document))
 
     def __eq__(self, other):
