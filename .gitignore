@@ -1,0 +1,6 @@
+*.pyc
+*.class
+*.zip
+.idea
+*/__pycache__/*
+.pytest_cache
