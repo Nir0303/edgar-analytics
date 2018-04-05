@@ -11,8 +11,10 @@ import argparse
 from collections import OrderedDict
 
 
-mapping = {'ip': 0, 'date': 1, 'time': 2, 'zone': 3, 'cik': 4, 'accession': 5, 'extention': 6, 'code': 7, 'size': 8,
-           'idx': 9, 'norefer': 10, 'noagent': 11, 'find': 12, 'crawler': 13, 'browser': 14}
+mapping = {'ip': 0, 'date': 1, 'time': 2, 'zone': 3, 'cik': 4,
+           'accession': 5, 'extention': 6, 'code': 7, 'size': 8,
+           'idx': 9, 'norefer': 10, 'noagent': 11, 'find': 12,
+           'crawler': 13, 'browser': 14}
 
 
 def parse_args():
@@ -22,6 +24,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", "-i", help="input files to process", type=str)
+    parser.add_argument ("--inactivity_file", "-a", help="inactivity file", type=str)
     parser.add_argument("--output", "-o", help="output file to write process data", type=str)
     parser.add_argument("--log_level", "-l", help="Set loglevel for debugging and analysis",
                          default="INFO")
@@ -93,10 +96,11 @@ class App(object):
     """
     main application for streaming data and processing data
     """
-    def __init__(self, input_file=None, output_file=None):
+    def __init__(self, input_file=None, output_file=None, inactivity_file =None):
         self.logs = OrderedDict()
         self.input_file = 'input/log.csv' if not input_file else input_file
         self.output_file = 'output/sessionization.txt' if not output_file else output_file
+        self.inactivity_file = 'input/inactivity_period.txt' if not inactivity_file else inactivity_file
         self.current_record_time = None
         
         self.current_ip = None
@@ -169,7 +173,6 @@ class App(object):
         keys = list(self.logs.keys())
         for key in keys:
             if check_time:
-
                 time_diff = time_difference_in_seconds(check_time, self.logs[key][0])
                 # print(time_diff)
                 if time_diff > self.inactivity_period:
@@ -216,7 +219,7 @@ if __name__ == '__main__':
         app_start_time = datetime.datetime.now()
         args = parse_args()
         print("Starting Edgar streaming application at {}".format(app_start_time))
-        app = App(input_file=args.input, output_file=args.output)
+        app = App(input_file=args.input, output_file=args.output, inactivity_file = args.inactivity_file)
         print("Processing Edgar data with {} file".format(app.input_file))
         app.run()
         print("Processed Edgar data , Output is stored in {}".format(app.output_file))
