@@ -13,6 +13,7 @@
      - from next record check if current_record_timestamp matches with check_time.
      - if match (current_record_timestamp matches with check_time). check if record is already been tracked by HashMap , if been tracked, update metadata in HashMap. if not been tracked, place it HashMap with ip address as key.
      - if not match (current_record_timestamp not matches with check_time), update check_time and iterate HashMap keys iterate for pausible deletions and inserations in output file if inactivity time exceeds. check if existing record is already been tracked by HashMap , if been tracked, update metadata in HashMap. if not been tracked, place it HashMap with ip address as key.
+5. Once all records are iterated, write remaining HashMap data to output file
 
 # Dependencies
 1. python3
@@ -35,7 +36,7 @@
 
 4. Run python unit testcases
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `pytest`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `pytest src/`
 
 5. Run shell script to start streaming application
 

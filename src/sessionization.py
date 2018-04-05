@@ -3,9 +3,7 @@
 Main module for edgar analytics application
 """
 
-import os
 import csv
-import heapq
 import datetime
 import argparse
 from collections import OrderedDict
@@ -24,7 +22,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", "-i", help="input files to process", type=str)
-    parser.add_argument ("--inactivity_file", "-a", help="inactivity file", type=str)
+    parser.add_argument("--inactivity_file", "-a", help="inactivity file", type=str)
     parser.add_argument("--output", "-o", help="output file to write process data", type=str)
     parser.add_argument("--log_level", "-l", help="Set loglevel for debugging and analysis",
                          default="INFO")
@@ -96,17 +94,20 @@ class App(object):
     """
     main application for streaming data and processing data
     """
-    def __init__(self, input_file=None, output_file=None, inactivity_file =None):
+    def __init__(self, input_file=None, output_file=None, inactivity_file=None):
         self.logs = OrderedDict()
         self.input_file = 'input/log.csv' if not input_file else input_file
         self.output_file = 'output/sessionization.txt' if not output_file else output_file
         self.inactivity_file = 'input/inactivity_period.txt' if not inactivity_file else inactivity_file
         self.current_record_time = None
-        
         self.current_ip = None
 
     @property
     def inactivity_period(self):
+        """
+        inactivity_period property
+        :return: 
+        """
         with open('input/inactivity_period.txt') as f:
             _inactivity_period = int(f.read().replace(',', ''))
         return _inactivity_period
@@ -150,7 +151,8 @@ class App(object):
                          Record(ip=row[mapping['ip']],
                                 start_date=row[mapping['date']],
                                 start_time=row[mapping['time']],
-                                document=row[mapping['cik']] + '-' + row[mapping['accession']] + '-' + row[mapping['extention']])]
+                                document=row[mapping['cik']] + '-' +
+                                         row[mapping['accession']] + '-' + row[mapping['extention']])]
 
     def update_log(self, ip, row):
         """
@@ -162,7 +164,8 @@ class App(object):
         self.logs[ip][0] = self.current_record_time
         self.logs[ip][1].insert(end_date=row[mapping['date']],
                                 end_time=row[mapping['time']],
-                                document=row[mapping['cik']] + '-' + row[mapping['accession']] + '-' + row[mapping['extention']])
+                                document=row[mapping['cik']] + '-' +
+                                         row[mapping['accession']] + '-' + row[mapping['extention']])
 
     def write_log(self, check_time=None):
         """
@@ -219,7 +222,7 @@ if __name__ == '__main__':
         app_start_time = datetime.datetime.now()
         args = parse_args()
         print("Starting Edgar streaming application at {}".format(app_start_time))
-        app = App(input_file=args.input, output_file=args.output, inactivity_file = args.inactivity_file)
+        app = App(input_file=args.input, output_file=args.output, inactivity_file=args.inactivity_file)
         print("Processing Edgar data with {} file".format(app.input_file))
         app.run()
         print("Processed Edgar data , Output is stored in {}".format(app.output_file))

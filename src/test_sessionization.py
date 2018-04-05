@@ -3,7 +3,7 @@
 Module to test main module
 """
 import unittest
-from mock import patch, PropertyMock
+from mock import patch
 from sessionization import App, Record
 
 
@@ -48,13 +48,14 @@ class TestMain(unittest.TestCase):
         run.return_value = 'test run'
         t = App()
         assert t.run() == 'test run'
-    
+
     def test_record_success(self):
+
         """
         test case to validate record data
         :return: 
         """
-        record = Record(ip='123',start_date='2017-06-30',
+        record = Record(ip='123', start_date='2017-06-30',
                         start_time='00:00:00',
                         document='test')
         record.insert(document='test', end_date='2017-06-30', end_time='00:00:00')
@@ -82,10 +83,6 @@ class TestMain(unittest.TestCase):
         assert len(record.document) != 2
         assert record.time_diff != '1'
 
-    def test_app(self):
-        pass
-
-        
 
 if __name__ == '__main__':
     test = TestMain()
