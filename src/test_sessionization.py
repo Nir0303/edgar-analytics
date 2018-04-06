@@ -3,6 +3,7 @@
 Module to test main module
 """
 import unittest
+import datetime
 from mock import patch
 from sessionization import App, Record
 
@@ -55,16 +56,20 @@ class TestMain(unittest.TestCase):
         test case to validate record data
         :return: 
         """
-        record = Record(ip='123', start_date='2017-06-30',
-                        start_time='00:00:00',
-                        document='test')
-        record.insert(document='test', end_date='2017-06-30', end_time='00:00:00')
+        record = Record(ip='123',
+                         start_time=datetime.datetime.strptime('2017-06-30 00:00:00',
+                                                                '%Y-%m-%d %H:%M:%S'),
+                         document='test')
+        record.insert(document='test', end_time=datetime.datetime.strptime('2017-06-30 00:00:00',
+                                                                             '%Y-%m-%d %H:%M:%S'))
         assert record.start_time == record.end_time
         assert len(record.document) == 2
         assert record.time_diff == '1'
-        record.insert(document='test2', end_date='2017-06-30', end_time='00:10:00')
+        record.insert(document='test2', end_time=datetime.datetime.strptime('2017-06-30 00:10:00',
+                                                                             '%Y-%m-%d %H:%M:%S'))
         assert record.start_time != record.end_time
         assert len(record.document) == 3
+        assert record.ip == '123'
         assert record.time_diff == '601'
         assert str(record) == '123,2017-06-30 00:00:00,2017-06-30 00:10:00,601,3'
 
@@ -73,15 +78,19 @@ class TestMain(unittest.TestCase):
         test case to validate record data
         :return:
         """
-        record = Record(ip='121', start_date='2017-06-30',
-                        start_time='00:00:00',
+        record = Record(ip='121', 
+                        start_time=datetime.datetime.strptime('2017-06-30 00:00:00',
+                                                              '%Y-%m-%d %H:%M:%S'),
                         document='test')
-        record.insert(document='test', end_date='2017-06-30', end_time='00:00:00')
+        record.insert(document='test', end_time=datetime.datetime.strptime('2017-06-30 00:00:00',
+                                                              '%Y-%m-%d %H:%M:%S'))
         assert len(record.document) != 1
-        record.insert(document='test2', end_date='2017-07-30', end_time='00:00:00')
+        record.insert(document='test2', end_time=datetime.datetime.strptime('2017-07-30 00:00:00',
+                                                              '%Y-%m-%d %H:%M:%S'))
         assert record.start_time != record.end_time
         assert len(record.document) != 2
         assert record.time_diff != '1'
+        assert record.ip is not None
 
 
 if __name__ == '__main__':

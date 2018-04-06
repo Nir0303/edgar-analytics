@@ -56,7 +56,7 @@ class Record(object):
         self.document = [document]
         self.end_time = self.start_time
 
-    def insert(self, document,  end_time):
+    def insert(self, document, end_time):
         """
         Update record details if record already been tracked
         :param document: new document been requested by session
@@ -220,9 +220,9 @@ class App(object):
                     self.update_log(self.current_ip, row)
                 else:
                     self.insert_log(self.current_ip, row)
-        else:
-            # file has been iterated, write remaining records to file.
-            self.write_log()
+
+        # file has been iterated, write remaining records to file.
+        self.write_log()
 
 
 if __name__ == '__main__':

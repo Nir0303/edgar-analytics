@@ -11,11 +11,11 @@
 4. Iterate records via generator
      - for first record save check_time , create Record userdefined object , place it HashMap with ip address as key.
      - from next record check if current_record_timestamp matches with check_time.
-     - if match (current_record_timestamp matches with check_time). check if record is already been tracked by HashMap , if been tracked, update metadata in HashMap. if not been tracked, place it HashMap with ip address as key.
-     - if not match (current_record_timestamp not matches with check_time), update check_time and iterate HashMap keys for possible(session expired details) delete record from HashMap and insert data in output file. check if existing record is already been tracked by HashMap , if been tracked, update metadata in HashMap. if not been tracked, place it HashMap with ip address as key.
+     - if match (current_record_timestamp matches with check_time). check if record is already been tracked by HashMap , if been tracked, update metadata (Record info - number of documents and end time) in HashMap. if not been tracked, place it HashMap with ip address as key.
+     - if not match (current_record_timestamp not matches with check_time), update check_time and iterate HashMap keys for possible(session expired details) insert session details in output file and delete record from HashMap.  check if existing record is already been tracked by HashMap , if been tracked, update metadata (Record info - number of documents and end time) in HashMap. if not been tracked, place it HashMap with ip address as key.
 5. Once all records are iterated, write remaining HashMap data to output file. 
 
-Note: Using Ordered HashMap, data will remain in the same order as they were added to HashMap
+Note: Using Ordered HashMap, data will remain in the same order as they are added  to HashMap or deleted from HashMap
 
 # Dependencies
 1. python3
